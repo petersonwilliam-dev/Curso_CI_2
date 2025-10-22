@@ -10,6 +10,12 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+    env:
+      DB_HOST: localhost
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: root
+      DB_PORT: 5432
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-22.04']
