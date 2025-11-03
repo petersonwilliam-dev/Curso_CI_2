@@ -37,7 +37,7 @@ jobs:
     - name: Wait for Postgres
       run: |
         sudo apt-get update && sudo apt-get install -y postgresql-client
-        until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USERNAME" -d "$DB_NAME"; do
+        until pg_isready -h "localhost" -p "5432" -U "root" -d "root"; do
           echo "Aguardando Postgres..."
           sleep 2
         done
