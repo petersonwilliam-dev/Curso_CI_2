@@ -10,8 +10,23 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: root
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U root -d root"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     env:
-      DB_HOST: localhost
+      DB_HOST: 127.0.0.1
       DB_USERNAME: root
       DB_PASSWORD: root
       DB_NAME: root
@@ -28,11 +43,14 @@ jobs:
       with:
         go-version: ${{ matrix.go_version }}
       
-    - name: Build-DB
-      run: docker compose build
-      
-    - name: Create-DB
-      run: docker compose up -d 
+    - name: Wait for Postgres
+      run: |
+        for i in {1..60}; do
+          pg_isready -h 127.0.0.1 -p 5432 -U root -d root && exit 0
+          echo "Aguardando Postgres..."
+          sleep 1
+        done
+        echo "Postgres não ficou pronto a tempo"; exit 1
 
     - name: Test
       run: go test -v main_test.go 
