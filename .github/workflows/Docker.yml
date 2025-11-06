@@ -27,5 +27,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: petersonwl/go_ci:${{github.ref_name}}
+        tags: petersonwl/go_ci
           
