@@ -31,11 +31,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            export DB_HOST=${{ secrets.DB_HOST }} \
-            export DB_USERNAME=${{ secrets.DB_USERNAME }} \
-            export DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            export DB_NAME=${{ secrets.DB_NAME }} \
-            export DB_PORT=${{ secrets.DB_PORT }} \
-            export PORT=8000 \
-            chmod +x main \
-            nohup ./main > nohup.out 2> nohup.err < /dev/null &
+           /bin/bash -c '
+              export DB_HOST=${{ secrets.DB_HOST }}
+              export DB_USERNAME=${{ secrets.DB_USERNAME }}
+              export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+              export DB_NAME=${{ secrets.DB_NAME }}
+              export DB_PORT=${{ secrets.DB_PORT }}
+              export PORT=8000
+              echo "DB_PORT (Debug): $DB_PORT" >> nohup.err
+              chmod +x main
+              nohup ./main > nohup.out 2>> nohup.err < /dev/null &
+            '
