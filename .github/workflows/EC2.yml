@@ -30,12 +30,12 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          scripts: |
+          script: |
             export DB_HOST=${{ secrets.DB_HOST }} 
             export DB_USERNAME=${{ secrets.DB_USERNAME }} 
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }} 
             export DB_NAME=${{ secrets.DB_NAME }} 
             export DB_PORT=${{ secrets.DB_PORT }}
             export PORT=8000
-            chmod +x main.exe
-            nohup ./main.exe > nohup.out 2> nohup.err < /dev/null &
+            chmod +x main
+            nohup ./main > nohup.out 2> nohup.err < /dev/null &
