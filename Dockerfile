@@ -4,7 +4,7 @@ EXPOSE 8000
 
 WORKDIR /app
 
-COPY ./main.exe main
+COPY ./main main
 
 RUN chmod +x ./main
 
