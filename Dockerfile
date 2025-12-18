@@ -4,10 +4,10 @@ EXPOSE 8000
 
 WORKDIR /app
 
-ENV DB_HOST=localhost DB_PORT=5432
+COPY ./main main
+COPY ./templates ./templates
+COPY ./assets ./assets
 
-ENV DB_USERNAME=root DB_PASSWORD=root DB_NAME=root
+RUN chmod +x ./main
 
-COPY ./main.exe main
-
-CMD ["./main "]
+CMD ["./main"]
