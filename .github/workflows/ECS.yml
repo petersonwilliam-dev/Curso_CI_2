@@ -1,0 +1,19 @@
+name: Deploy to ECS
+
+on:
+  workflow_call:
+
+jobs:
+  ECS:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Configurar credenciais aws
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    
+    - name: Obtendo arquivo de tarefa
+      run: aws ecs describe-task-definition --task-definition Tarefa_API_Estudos --query "taskDefinition" > task-def.json
