@@ -33,8 +33,8 @@ jobs:
       DB_PORT: 5432
     strategy:
       matrix:
-        os: ['ubuntu-latest', 'ubuntu-22.04']
-        go_version: ['1.18', '1.17', '>=1.18']
+        os: ['ubuntu-latest']
+        go_version: ['>=1.18']
     steps:
     - uses: actions/checkout@v3
 
