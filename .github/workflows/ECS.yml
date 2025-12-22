@@ -32,9 +32,9 @@ jobs:
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           DB_NAME=${{ secrets.DB_NAME }}
+          DB_SSLMODE=require
           DB_PORT=${{ secrets.DB_PORT }}
           PORT=8000
-          DB_SSLMODE=${{ secrets.DB_SSLMODE }}
     
     - name: Deploy da tarefa para o ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
