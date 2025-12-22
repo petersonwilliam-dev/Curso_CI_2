@@ -37,7 +37,7 @@ jobs:
     - name: Deploy da tarefa para o ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-def }}
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: Servico-go-estudos
         cluster: api-go-estudos
         wait-for-service-stability: true
