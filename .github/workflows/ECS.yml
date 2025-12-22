@@ -16,8 +16,10 @@ jobs:
         aws-region: us-east-1
     
     - name: Obtendo arquivo de tarefa
-      run: aws ecs describe-task-definition --task-definition Tarefa_API_Estudos --query "taskDefinition" > task-def.json
-
+      run: |
+        aws ecs describe-task-definition --task-definition Tarefa_API_Estudos --query "taskDefinition" > temp-task-def.json
+        jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy, .enableFaultInjection)' temp-task-def.json > task-def.json
+    
     - name: Atualizando imagem docker no arquivo de tarefa
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -32,7 +34,7 @@ jobs:
           DB_NAME=${{ secrets.DB_NAME }}
           DB_PORT=${{ secrets.DB_PORT }}
           PORT=8000
-          DB_SSLIMODE=${{ secrets.DB_SSLMODE }}
+          DB_SSLMODE=${{ secrets.DB_SSLMODE }}
     
     - name: Deploy da tarefa para o ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
