@@ -26,13 +26,13 @@ jobs:
       with:
         task-definition: task-def.json
         container-name: Go-Estudos
-        image: petersonwl/go_ci:1.1
+        image: petersonwl/go_ci:${{ github.run_number }}
         environment-variables: |
           DB_HOST=${{ secrets.DB_HOST }}
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           DB_NAME=${{ secrets.DB_NAME }}
-          DB_SSLMODE=require
+          DB_SSLMODE=${{ secrets.DB_SSLMODE }}
           DB_PORT=${{ secrets.DB_PORT }}
           PORT=8000
     
